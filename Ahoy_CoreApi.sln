@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ahoy_CoreApi", "Ahoy_CoreApi.csproj", "{102CC6B6-0A71-4D6E-A2D5-6B5A3F6BB809}"
+	ProjectSection(ProjectDependencies) = postProject
+		{939D293F-BBA6-40C5-A578-DB56EA4FB5CA} = {939D293F-BBA6-40C5-A578-DB56EA4FB5CA}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ahoy_Data", "..\Ahoy_Data\Ahoy_Data.csproj", "{939D293F-BBA6-40C5-A578-DB56EA4FB5CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{102CC6B6-0A71-4D6E-A2D5-6B5A3F6BB809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102CC6B6-0A71-4D6E-A2D5-6B5A3F6BB809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102CC6B6-0A71-4D6E-A2D5-6B5A3F6BB809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102CC6B6-0A71-4D6E-A2D5-6B5A3F6BB809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{939D293F-BBA6-40C5-A578-DB56EA4FB5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{939D293F-BBA6-40C5-A578-DB56EA4FB5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{939D293F-BBA6-40C5-A578-DB56EA4FB5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{939D293F-BBA6-40C5-A578-DB56EA4FB5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {663CF18D-6728-4329-9DA1-E6FA514BD1C1}
+	EndGlobalSection
+EndGlobal

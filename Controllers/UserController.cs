@@ -22,7 +22,31 @@ namespace Ahoy_CoreApi.Controllers
             return _context.Users.ToList();
         }
 
+        [HttpGet("id")]
+        [ProducesResponseType(typeof(UserInfo), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetUser(int id)
+        {
+            var user = _context.Users.Where(x => x.UserId == id && x.Status == true).FirstOrDefault();
+            return user == null ? NotFound() : Ok(user);
+        }
+
         [HttpPost]
-        public 
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateUser(UserInfo user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUser), new
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Password = user.Password,
+                Email = user.Email,
+                Status = true,
+                CreateDate = DateTime.Now
+            });
+        }
     }
 }

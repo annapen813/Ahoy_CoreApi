@@ -1,5 +1,6 @@
 ﻿using Ahoy_Data.Data;
 using Ahoy_Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,6 +61,7 @@ namespace Ahoy_CoreApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> CreateHotel(Hotel hotel)
         {
             await _context.Hotels.AddAsync(hotel);
@@ -69,6 +71,7 @@ namespace Ahoy_CoreApi.Controllers
             {
                 HotelId = hotel.HotelId,
                 HotelName = hotel.HotelName,
+                Facilities = hotel.Facilities,
                 Latitude = hotel.Latitude,
                 Longitude = hotel.Longitude,
                 Rate = hotel.RatePerNight,

@@ -17,9 +17,9 @@ namespace Ahoy_CoreApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Hotel> GetUsers()
+        public IEnumerable<Hotel> GetHotels()
         {
-            return _context.Hotels.ToList();
+            return _context.Hotels.Where(x => x.TotalRooms > 0 && x.Status == true).ToList();
         }
 
         [HttpGet("hotelid")]
@@ -27,7 +27,7 @@ namespace Ahoy_CoreApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetHotelById(int id)
         {
-            var hotel = _context.Hotels.Where(x => x.HotelId.Equals(id)).FirstOrDefault();
+            var hotel = _context.Hotels.Where(x => x.HotelId.Equals(id) && x.TotalRooms > 0 && x.Status == true).FirstOrDefault();
             return hotel != null ? Ok(hotel) : NotFound();
         }
 
@@ -36,7 +36,7 @@ namespace Ahoy_CoreApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetHotelByName(string name)
         {
-            var hotels = _context.Hotels.Where(x => x.HotelName.Contains(name) && x.TotalRooms > 0).ToList();
+            var hotels = _context.Hotels.Where(x => x.HotelName.Contains(name) && x.TotalRooms > 0 && x.Status == true).ToList();
             return hotels.Any() ? Ok(hotels) : NotFound();
         }
 
@@ -45,7 +45,7 @@ namespace Ahoy_CoreApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetHotelByStar(string starrate)
         {
-            var hotels = _context.Hotels.Where(x => x.StarRate.ToString().Contains(starrate) && x.TotalRooms > 0).ToList();
+            var hotels = _context.Hotels.Where(x => x.StarRate.ToString().Contains(starrate) && x.TotalRooms > 0 && x.Status == true).ToList();
             return hotels.Any() ? Ok(hotels) : NotFound();
         }
 
@@ -54,8 +54,31 @@ namespace Ahoy_CoreApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetHotelByFacility(string facilities)
         {
-            var hotels = _context.Hotels.Where(x => x.Facilities.Contains(facilities) && x.TotalRooms > 0).ToList();
+            var hotels = _context.Hotels.Where(x => x.Facilities.Contains(facilities) && x.TotalRooms > 0 && x.Status == true).ToList();
             return hotels.Any() ? Ok(hotels) : NotFound();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateHotel(Hotel hotel)
+        {
+            await _context.Hotels.AddAsync(hotel);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetHotels), new
+            {
+                HotelId = hotel.HotelId,
+                HotelName = hotel.HotelName,
+                Latitude = hotel.Latitude,
+                Longitude = hotel.Longitude,
+                Rate = hotel.RatePerNight,
+                StartRate = hotel.StarRate,
+                Address = hotel.Address,
+                Description = hotel.Description,
+                TotalRooms =  hotel.TotalRooms,
+                Status = hotel.Status,
+                CreateDate = DateTime.Now
+            });
         }
     }
 }
